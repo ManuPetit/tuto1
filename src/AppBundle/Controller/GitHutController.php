@@ -27,6 +27,28 @@ class GitHutController extends Controller
                 "Public Repos" => 5,
                 "Followers" => 0,
                 "Following" => 0
+            ],
+            'repo_count' => 110,
+            'most_stars' => 67,
+            'repos' => [
+                [
+                    'name' => 'some repository',
+                    'url' => 'https://github.com/ManuPetit/demo_de_git',
+                    'stargazers_count' => 46,
+                    'description' => 'une demo de git'
+                ],
+                [
+                    'name' => 'another repository',
+                    'url' => 'https://bbc.co.uk',
+                    'stargazers_count' => 22,
+                    'description' => 'The BBC !'
+                ],
+                [
+                    'name' => 'google code',
+                    'url' => 'https://google.com',
+                    'stargazers_count' => 11,
+                    'description' => 'All the web ...'
+                ],
             ]
         ]);
     }
