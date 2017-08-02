@@ -13,32 +13,10 @@ class GitHutController extends Controller
      */
     public function githutAction(Request $request, $username)
     {
-
+        $this->get('github_api')->getRepos($username);
 
         return $this->render('githut/index.html.twig', [
-            'username' => $username,
-            'repo_count' => 110,
-            'most_stars' => 67,
-            'repos' => [
-                [
-                    'name' => 'some repository',
-                    'url' => 'https://github.com/ManuPetit/demo_de_git',
-                    'stargazers_count' => 46,
-                    'description' => 'une demo de git'
-                ],
-                [
-                    'name' => 'another repository',
-                    'url' => 'https://bbc.co.uk',
-                    'stargazers_count' => 22,
-                    'description' => 'The BBC !'
-                ],
-                [
-                    'name' => 'google code',
-                    'url' => 'https://google.com',
-                    'stargazers_count' => 11,
-                    'description' => 'All the web ...'
-                ],
-            ]
+            'username' => $username
         ]);
     }
 
@@ -49,5 +27,14 @@ class GitHutController extends Controller
     {
         $profileData = $this->container->get('github_api')->getProfile($username);
         return $this->render('githut/profile.html.twig', $profileData);
+    }
+
+    /**
+     * @Route("/repos/{username}", name="repos")
+     */
+    public function reposAction(Request $request, $username)
+    {
+        $profileData = $this->container->get('github_api')->getRepos($username);
+        return $this->render('githut/repos.html.twig', $profileData);
     }
 }
