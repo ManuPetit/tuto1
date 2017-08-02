@@ -6,6 +6,8 @@ parameters:
 services:
     guzzle_http_client:
         class: AppBundle\Service\GuzzleHttpClient
+        arguments:
+            - "@guzzle.client.8p_guzzle_client"
 
     buzz_http_client:
         class: AppBundle\Service\BuzzHttpClient
@@ -13,7 +15,7 @@ services:
     github_api:
         class: AppBundle\Service\GitHubApi
         arguments:
-            - "@buzz_http_client"
+            - "@guzzle_http_client"
 
 #    # default configuration for services in *this* file
 #    _defaults:
