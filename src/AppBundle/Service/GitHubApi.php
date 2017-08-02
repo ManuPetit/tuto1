@@ -11,12 +11,19 @@ namespace AppBundle\Service;
 
 class GitHubApi
 {
+    /**
+     * @var HttpClientInterface
+     */
+    private $httpClient;
+
+    public function __construct(HttpClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
     public function getProfile($username)
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.github.com/users/' . $username);
-
-        $data = json_decode($response->getBody()->getContents(), true);
+        $data = $this->httpClient->get('https://api.github.com/users/' . $username);
 
         return ['avatar_url' => $data['avatar_url'],
             'name' => $data['name'],
@@ -37,10 +44,7 @@ class GitHubApi
 
     public function getRepos($username)
     {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.github.com/users/' . $username . '/repos');
-
-        $data = json_decode($response->getBody()->getContents(), true);
+        $data = $this->httpClient->get('https://api.github.com/users/' . $username . '/repos');
 
         return [
             'repo_count' => count($data),

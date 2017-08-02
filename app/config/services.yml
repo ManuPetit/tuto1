@@ -4,8 +4,16 @@ parameters:
     #parameter_name: value
 
 services:
+    guzzle_http_client:
+        class: AppBundle\Service\GuzzleHttpClient
+
+    buzz_http_client:
+        class: AppBundle\Service\BuzzHttpClient
+
     github_api:
         class: AppBundle\Service\GitHubApi
+        arguments:
+            - "@buzz_http_client"
 
 #    # default configuration for services in *this* file
 #    _defaults:
