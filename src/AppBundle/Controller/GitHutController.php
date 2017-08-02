@@ -9,25 +9,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class GitHutController extends Controller
 {
     /**
-     * @Route("/", name="githut")
+     * @Route("/{username}", name="githut", defaults={"username": "codereviewvideos"})
      */
-    public function githutAction(Request $request)
+    public function githutAction(Request $request, $username)
     {
+
+
         return $this->render('githut/index.html.twig', [
-            'avatar_url' => 'https://avatars3.githubusercontent.com/u/27859258?v=4',
-            'name' => 'Emmanuel Petit',
-            'login' => 'ManuPetit',
-            'details' => [
-                'company' => 'iiidées',
-                'location' => 'L\'Ile Rousse, Corsica, France',
-                'joined_on' => '21 April 2017'
-            ],
-            'blog' => 'http://bellerive.iiidees.com/',
-            'social_data' => [
-                "Public Repos" => 5,
-                "Followers" => 0,
-                "Following" => 0
-            ],
+            'username' => $username,
             'repo_count' => 110,
             'most_stars' => 67,
             'repos' => [
@@ -53,26 +42,12 @@ class GitHutController extends Controller
         ]);
     }
 
-//    /**
-//     * @Route("/profile", name="profile")
-//     */
-//    public function profileAction(Request $request)
-//    {
-//        return $this->render('githut/profile.html.twig', [
-//            'avatar_url' => 'https://avatars3.githubusercontent.com/u/27859258?v=4',
-//            'name' => 'Emmanuel Petit',
-//            'login' => 'ManuPetit',
-//            'details' => [
-//                'company' => 'iiidées',
-//                'location' => 'L\'Ile Rousse, Corsica, France',
-//                'joined_on' => '21 April 2017'
-//            ],
-//            'blog' => 'http://bellerive.iiidees.com/',
-//            'social_data' => [
-//                "Public Repos" => 5,
-//                "Followers" => 0,
-//                "Following" => 0
-//            ]
-//        ]);
-//    }
+    /**
+     * @Route("/profile/{username}", name="profile")
+     */
+    public function profileAction(Request $request, $username)
+    {
+        $profileData = $this->container->get('github_api')->getProfile($username);
+        return $this->render('githut/profile.html.twig', $profileData);
+    }
 }
