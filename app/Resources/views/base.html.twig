@@ -19,8 +19,13 @@
             </div>
         </nav>
         <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
 
-            {% block body %}{% endblock %}
+
 
         </div><!-- /.container -->
         {% block javascripts %}{% endblock %}
